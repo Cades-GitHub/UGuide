@@ -1,0 +1,14 @@
+{
+  "name": "main-folder",
+  "version": "1.0.0",
+  "description": "Main folder containing both client and server",
+  "scripts": {
+    "install": "npm install --prefix client && npm install --prefix server",
+    "start:client": "npm start --prefix client",
+    "start:server": "npm start --prefix server",
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\""
+  },
+  "dependencies": {
+    "concurrently": "^6.2.2"
+  }
+}
