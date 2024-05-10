@@ -1,4 +1,4 @@
-const Guide = require('../models/guideModel'); // Import the Guide model
+const Guide = require('../models/guide'); // Import the Guide model
 
 const resolvers = {
   Query: {
@@ -6,6 +6,7 @@ const resolvers = {
     guides: async () => {
       try {
         const guides = await Guide.find(); // Fetch all guides from the database
+        console.log('GUIDES', guides);
         return guides; // Return the fetched guides
       } catch (error) {
         throw new Error('Failed to fetch guides'); // Throw an error if fetching fails
@@ -34,7 +35,9 @@ const resolvers = {
     // Resolver function for updating an existing guide
     updateGuide: async (_, { id, input }) => {
       try {
-        const updatedGuide = await Guide.findByIdAndUpdate(id, input, { new: true }); // Update the guide in the database
+        const updatedGuide = await Guide.findByIdAndUpdate(id, input, {
+          new: true,
+        }); // Update the guide in the database
         return updatedGuide; // Return the updated guide
       } catch (error) {
         throw new Error('Failed to update guide'); // Throw an error if update fails
