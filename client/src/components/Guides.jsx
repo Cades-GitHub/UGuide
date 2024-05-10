@@ -1,32 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import guideModel from "./models/guideModel"; // Import the guideModel module
+// import guideModel from "./models/guideModel"; // Import the guideModel module
+import GuideCard from './GuideCard';
+import { useQuery } from '@apollo/client';
+import { QUERY_ALL_GUIDES } from '../utils/queries';
+
 
 const Guides = () => {
-  const [guides, setGuides] = useState([]);
+  const { loading, data } = useQuery(QUERY_ALL_GUIDES);
+  // const [guides, setGuides] = useState([]);
 
-  useEffect(() => {
-    // Fetch guides from the guideModel
-    guideModel.find()
-      .then(data => {
-        setGuides(data);
-      })
-      .catch(error => {
-        console.error('Error fetching guides:', error);
-      });
-  }, []);
+  const guides = data?.guides || [];
+
+  // useEffect(() => {
+  //   // Fetch guides from the guideModel
+  //   guideModel.find()
+  //     .then(data => {
+  //       setGuides(data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching guides:', error);
+  //     });
+  // }, []);
+
+  if (loading) {
+    return <h2>LOADING...</h2>;
+  }
+
+  console.log('GUIDES', guides);
 
   return (
     <div>
       <h1>Guides</h1>
-      {guides.length === 0 ? (
+      { guides.length === 0 ? (
         <div>No guides available</div>
       ) : (
         <div>
-          {guides.map(guide => (
-            <Guide key={guide._id} guide={guide} />
-          ))}
+          { guides.map(guide => (
+            <GuideCard key={ guide._id } guide={ guide } />
+          )) }
         </div>
-      )}
+      ) }
     </div>
   );
 };

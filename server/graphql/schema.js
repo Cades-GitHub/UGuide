@@ -1,21 +1,21 @@
-const { gql } = require('apollo-server-express');
+// const { gql } = require('apollo-server-express');
 
-const typeDefs = gql`
+const typeDefs = `
   scalar DateTime
 
   type User {
-    id: ID!
+    _id: ID!
     username: String!
     email: String!
   }
 
   type Guide {
-    id: ID!
+    _id: ID!
     title: String!
     description: String!
     videoUrl: String!
-    author: User!
-    createdAt: DateTime!
+    author: User
+    createdAt: DateTime
   }
 
   input GuideInput {
